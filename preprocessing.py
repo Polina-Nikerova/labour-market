@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import numpy as np
 
+# uploading data
 def load_data():
     df = pd.read_excel('./files/data.xlsx')
     return df
