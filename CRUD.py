@@ -67,7 +67,7 @@ def insert_vacancy_table(df):
         session.commit()
         print('add row')
 
-#пример заполнения бд из эксель файла
+#example: inserting data from excel file
 def insert_table():
     df = load_data('df_test')
     df['Skills'] = df['Skills'].apply(lambda x: x.replace('[', '').replace(']', ''))
@@ -95,5 +95,3 @@ def get_vacancy_data():
     result = connection.execute(query).fetchall()
     df = pd.DataFrame(result)
     return df
-
-# заполнить вторую таблицу пн 19.00 нарисовать схему где что запускается

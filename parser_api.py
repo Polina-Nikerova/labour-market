@@ -10,18 +10,19 @@ import re
 import json
 from CRUD import insert_base_table
 import numpy as np
+import streamlit as st
 
 def get_links_api(amount_vacancy, page, area):
-    # Работа с апи
-    # Справочник для параметров GET-запроса
+    st.write('parser_api start')
+
     params = {
-        # 'text': 'NAME:Аналитик', # Текст фильтра. В имени должно быть слово "Аналитик"
-        'area': area,  # Поиск осуществляется по вакансиям города Москва
-        'page': page,  # Индекс страницы поиска на HH
-        'per_page': amount_vacancy  # Кол-во вакансий на 1 странице
+        # 'text': 'NAME:Аналитик', # Текст фильтра. Vacancy search with a keyword
+        'area': area,  # Choice of an area/region
+        'page': page,  # Number of page
+        'per_page': amount_vacancy  # Number of vacancies per page
     }
 
-    req = requests.get('https://api.hh.ru/vacancies', params)  # Посылаем запрос к API
+    req = requests.get('https://api.hh.ru/vacancies', params)
 
     import json
     data = json.loads(req.text)
@@ -57,8 +58,8 @@ def get_data_api(list_final):
 
         time.sleep(random.uniform(1.5, 3.5))
         if req.status_code == 200:
-            print('Count - ', count)
-            print('Work - ', link)
+            st.write(f'Count - {count}')
+            st.write(f'Work - {link}')
             data = json.loads(req.text)
             name = data['name']
 
@@ -126,7 +127,7 @@ def skills_frequency(df):
 def main_parser(amount_vacancy, area, max_page):
     bag_of_links = []
     for page in range(1, max_page):
-        print('Working with page', page)
+        st.write(f'Working with page --> {page}')
         list_links = get_links_api(amount_vacancy, page, area)
         bag_of_links.extend(list_links)
     get_data_api(bag_of_links)

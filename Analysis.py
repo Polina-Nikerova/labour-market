@@ -1,12 +1,13 @@
 import pandas as pd
-
 from CRUD import insert_table, get_data_query, insert_vacancy_table, get_vacancy_data, insert_mongo_db, get_data_from_mongodb
 from parser_api import get_vacancy, main_parser, skills_frequency
 from sqlalchemy import create_engine, select
 from models import connection, Base, engine
 import warnings
+from app import web_app
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
+table_name = 'skills_frequency'
 def main():
     df = get_data_query()
     df = get_vacancy(df)
@@ -25,11 +26,10 @@ def get_data_in_mongodb():
     insert_mongo_db(final_dict, table_name)
 
 if __name__ == '__main__':
-    Base.metadata.create_all(engine)
-    amount_vacancy, area, max_page = 100, 1, 2
-    table_name = 'skills_frequency'
+    #Base.metadata.create_all(engine)
+    #amount_vacancy, area, max_page = 100, 1, 2
     #records = get_data_from_mongodb(table_name)
     #df = pd.DataFrame.from_dict(records)
-    get_data_in_mongodb()
-
+    #get_data_in_mongodb()
+    web_app()
 
