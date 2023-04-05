@@ -12,3 +12,5 @@ The data is collected directly from API (see parser_api.py) into two dataframes:
       2) most frequent skills for each category  
       
 The results are presented using streamlit (see app.py).
+![image](https://user-images.githubusercontent.com/88784838/230091000-70998fc1-40c0-46be-868a-4607f3781e28.png)
+
